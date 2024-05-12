@@ -1,0 +1,10 @@
+CREATE DATABASE RENT_A_CAR;
+USE RENT_A_CAR;
+CREATE TABLE Klijent (ID_Klijenta INT AUTO_INCREMENT PRIMARY KEY, Ime VARCHAR(50), Email VARCHAR(50), Telefon INT(20), Adresa VARCHAR(50));
+CREATE TABLE Automobil (ID_Automobila INT AUTO_INCREMENT PRIMARY KEY, Marka VARCHAR(50), Model VARCHAR(50), Godina YEAR, Boja VARCHAR(50), Cijena DECIMAL(10, 2),  ID_Kategorije INT, FOREIGN KEY (ID_Kategorije) REFERENCES KategorijaAutomobila(ID_Kategorije));
+CREATE TABLE Najam (ID_Najma INT AUTO_INCREMENT PRIMARY KEY, ID_Klijenta INT,ID_Automobila INT,ID_Zaposlenika INT,ID_Statusa INT,DatumPocetkaNajma DATE,DatumZavrsetkaNajma DATE,UkupnaCijena DECIMAL(10, 2),FOREIGN KEY (ID_Klijenta) REFERENCES Klijent(ID_Klijenta),FOREIGN KEY (ID_Automobila) REFERENCES Automobil(ID_Automobila),FOREIGN KEY (ID_Zaposlenika) REFERENCES Zaposlenik(ID_Zaposlenika),FOREIGN KEY (ID_Statusa) REFERENCES StatusNajma(ID_Statusa));
+CREATE TABLE Zaposlenik (ID_Zaposlenika INT AUTO_INCREMENT PRIMARY KEY, Ime VARCHAR(50), Email VARCHAR(50), Telefon INT(20), Pozicija VARCHAR(50));
+CREATE TABLE StatusNajma (ID_Statusa INT AUTO_INCREMENT PRIMARY KEY, NazivStatusa VARCHAR(50));
+CREATE TABLE KategorijaAutomobila (ID_Kategorije INT AUTO_INCREMENT PRIMARY KEY, NazivKategorije VARCHAR(50));
+CREATE TABLE Oštećenja (ID_Oštećenja INT AUTO_INCREMENT PRIMARY KEY,ID_Najma INT,Opis TEXT,Trošak DECIMAL(10, 2),DatumPopravke DATE,FOREIGN KEY (ID_Najma) REFERENCES Najam(ID_Najma));
+CREATE TABLE Plaćanje (ID_Plaćanja INT AUTO_INCREMENT PRIMARY KEY,ID_Najma INT,Iznos DECIMAL(10, 2),DatumPlaćanja DATE,FOREIGN KEY (ID_Najma) REFERENCES Najam(ID_Najma));
